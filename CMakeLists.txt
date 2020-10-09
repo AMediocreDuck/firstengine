@@ -36,6 +36,7 @@ endif()
 add_library(firstengine
 src/firstengine/Core.cpp
 src/firstengine/Entity.cpp
+src/firstengine/Component.cpp
 src/firstengine/Core.h
 src/firstengine/Entity.h
 src/firstengine/Component.h

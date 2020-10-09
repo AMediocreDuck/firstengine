@@ -4,8 +4,10 @@
 namespace firstengine
 {
 	struct Component;
+	struct Core;
 	struct Entity
 	{
+		friend struct firstengine::Core;
 		template <typename T>
 		std::shared_ptr<T> addComponent()
 		{
@@ -16,5 +18,6 @@ namespace firstengine
 		void tick();
 	private:
 		std::vector<std::shared_ptr<Component>> components;
+		std::weak_ptr<Core> core;
 	};
 }

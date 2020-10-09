@@ -5,7 +5,10 @@ namespace firstengine
 {
 	struct Component
 	{
+		void tick();
+		virtual void onTick();
 
+	private:
 	};
 }
 #endif

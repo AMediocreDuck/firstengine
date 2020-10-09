@@ -12,5 +12,6 @@ namespace firstengine
 		void start();
 	private:
 		std::vector<std::shared_ptr<Entity>> entities;
+		std::weak_ptr<Core> self;
 	};
 }
