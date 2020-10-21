@@ -7,4 +7,13 @@ namespace firstengine
 		onTick();
 	}
 	void Component::onTick() {};
+
+	void Component::render()
+	{
+		onRender();
+	}
+	void Component::onRender()
+	{
+
+	}
 }
