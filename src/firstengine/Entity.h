@@ -22,6 +22,8 @@ namespace firstengine
 			return rtn;
 		}
 		void tick();
+		void render();
+		std::shared_ptr<Core> getCore();
 	private:
 		std::vector<std::shared_ptr<Component>> components;
 		std::weak_ptr<Core> core;

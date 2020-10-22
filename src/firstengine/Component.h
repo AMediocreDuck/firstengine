@@ -5,19 +5,21 @@
 
 namespace firstengine
 {
-
+	struct Core;
 	struct Entity;
 	struct Component
 	{
-		friend firstengine::Entity;
+		friend struct firstengine::Entity;
 
 		void onInitialize() {};
 		void tick();
 		virtual void onTick();
 		void render();
 		virtual void onRender();
+		std::shared_ptr<Core> getCore();
+		std::shared_ptr<Entity> getEntity();
 
-	protected:
+	private:
 		std::weak_ptr<Entity> entity;
 
 	};

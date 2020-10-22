@@ -1,6 +1,9 @@
 #include "Renderer.h"
 #include <string>
 #include <glm/glm.hpp>
+#include "Entity.h"
+#include "Core.h"
+
 
 namespace firstengine
 {
@@ -24,13 +27,13 @@ namespace firstengine
 			"} " \
 			" " \
 			"\n#endif\n ";
-		shader = context->createShader();
+		shader = getCore()->context->createShader();
 		shader->parse(src);
 
-		shape = context->createBuffer();
-		shape->add(vec2(0, 0.5f));
-		shape->add(vec2(-0.5f, -0.5f));
-		shape->add(vec2(0.5f, -0.5f));
+		shape = getCore()->context->createBuffer();
+		shape->add(glm::vec2(0, 0.5f));
+		shape->add(glm::vec2(-0.5f, -0.5f));
+		shape->add(glm::vec2(0.5f, -0.5f));
 
 	}
 	void Renderer::onRender()

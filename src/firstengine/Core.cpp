@@ -45,11 +45,15 @@ namespace firstengine
 					running = false;
 				}
 			}
+			for (size_t ei = 0; ei < entities.size(); ei++)
+			{
+				entities.at(ei)->tick();
+			}
 			glClearColor(0.39f, 0.8f, 0.93f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			for (size_t ei = 0; ei < entities.size(); ei++)
 			{
-				entities.at(ei)->tick();
+				entities.at(ei)->render();
 			}
 			SDL_GL_SwapWindow(window);
 		}
