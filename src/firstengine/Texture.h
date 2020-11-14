@@ -8,19 +8,18 @@
 
 namespace firstengine
 {
+	struct Renderer;
 	struct Texture : public Resource
 	{
-		Texture();
-		void Texture::onLoad();
-		~Texture();
-		GLuint getTextureId() { return textureId; }
+		void onLoad();
+
 
 	private:
-		friend struct Context;
-		std::shared_ptr<Context> context;
-		int imgWidth;
-		int imgHeight;
-		GLuint textureId;
+		friend struct firstengine::Renderer;
+		unsigned char* data;
+		int w;
+		int h;
+		//GLuint textureId;
 	};
 }
 #endif

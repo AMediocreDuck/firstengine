@@ -1,6 +1,7 @@
 #include "Screen.h"
 
 #include <glm/ext.hpp>
+#include <GL/glew.h>
 
 namespace firstengine
 {
@@ -13,5 +14,6 @@ namespace firstengine
 	void Screen::setWindowSize(SDL_Window *window)
 	{
 		 SDL_GetWindowSize(window, &width, &height);
+		 glViewport(0, 0, width, height);
 	}
 }

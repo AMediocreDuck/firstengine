@@ -2,9 +2,10 @@
 #include "firstengine/Exception.h"
 #include "ShaderProgram.h"
 #include "Texture.h"
+#include "Model.h"
 
 #include <GL/glew.h>
-namespace firstengine
+namespace fegraphics
 {
 	std::shared_ptr<Context> Context::initialize()
 	{
@@ -16,7 +17,6 @@ namespace firstengine
 		}
 
 		rtn->self = rtn;
-
 		return rtn;
 	}
 	std::shared_ptr<ShaderProgram> Context::createShader()
@@ -32,7 +32,8 @@ namespace firstengine
 		std::shared_ptr<ShaderProgram> rtn = std::make_shared<ShaderProgram>();
 		rtn->context = self.lock();
 		rtn->programId = id;
-
+		rtn->vertexShaderId =  glCreateShader(GL_VERTEX_SHADER);
+		rtn->fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
 		return rtn;
 	}
 
@@ -50,6 +51,14 @@ namespace firstengine
 		rtn->context = self.lock();
 		rtn->textureId = id;
 
+		return rtn;
+	}
+
+	std::shared_ptr<Model> Context::createModel()
+	{
+		std::shared_ptr<Model> rtn = std::make_shared<Model>();
+
+		rtn->context = self.lock();
 		return rtn;
 	}
 

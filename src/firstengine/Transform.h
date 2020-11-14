@@ -8,12 +8,17 @@ namespace firstengine
 {
 	struct Transform : public Component
 	{
+
+		void onInitialize();
 		glm::mat4 getModelMat();
+		void setPosition(glm::vec3 _position);
+		void setRotation(glm::vec3 _rotation);
+		void setScale(glm::vec3 _scale);
 
 	private:
-		glm::vec3 position = glm::vec3(0.0f,0.0f,-5.0f);
-		glm::vec3 rotation = glm::vec3(1.0f);
-		glm::vec3 scale = glm::vec3(1.0f);
+		glm::vec3 position;
+		glm::vec3 rotation;
+		glm::vec3 scale;
 	};
 }
 

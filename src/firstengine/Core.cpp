@@ -3,9 +3,10 @@
 #include "Entity.h"
 #include <iostream>
 #include "Screen.h"
+#include "Keyboard.h"
 #include "Transform.h"
 #include "firstengine/Exception.h"
-#include "Context.h"
+#include "feGraphics/Context.h"
 
 namespace firstengine
 {
@@ -18,6 +19,7 @@ namespace firstengine
 
 		std::shared_ptr<Core> rtn = std::make_shared<Core>();
 		rtn->self = rtn;
+		rtn->soundWorking = true;
 
 		int w;
 		int h;
@@ -37,8 +39,32 @@ namespace firstengine
 		{
 			throw firstengine::Exception("Failed to create OpenGL context");
 		}
-		rtn->context = Context::initialize();
+		rtn->alDevice = alcOpenDevice(NULL);
+		if (!rtn->alDevice)
+		{
+			rtn->soundWorking = false;
+			//throw firstengine::Exception("Failed to open default device");
+		}
+		if (rtn->soundWorking)
+		{
+			rtn->alContext = alcCreateContext(rtn->alDevice, NULL);
+			if (!rtn->alContext)
+			{
+				alcCloseDevice(rtn->alDevice);
+				rtn->soundWorking = false;
+				//throw firstengine::Exception("Failed to create AL context");
+			}
+			if (!alcMakeContextCurrent(rtn->alContext))
+			{
+				alcDestroyContext(rtn->alContext);
+				alcCloseDevice(rtn->alDevice);
+				rtn->soundWorking = false;
+				//throw Exception("Failed to make context current");
+			}
+		}
+		rtn->context = fegraphics::Context::initialize();
 		rtn->cacheManager = std::make_shared<CacheManager>();
+		rtn->keyboard = std::make_shared<Keyboard>();
 		rtn->cacheManager->core = rtn->self;
 		rtn->cacheManager->self = rtn->cacheManager;
 #ifdef EMSCRIPTEN
@@ -51,61 +77,47 @@ namespace firstengine
 		std::shared_ptr <Entity> rtn = std::make_shared <Entity>();
 		rtn->core = self;
 		rtn->self = rtn;
-		entities.push_back(rtn);
 		rtn->addComponent<Transform>();
+		entities.push_back(rtn);
 		return rtn;
 	}
-#ifdef EMSCRIPTEN
 		void Core::start()
 		{
-			emscripten_set_main_loop(Core::loop, 0, 1);
+#ifdef EMSCRIPTEN
+			emscripten_set_main_loop(Core::Loop, 0, 1);
+#else
+			bool running = true;
+			while (running)
+			{
+				running = Loop();
+			}
+#endif
 		}
 
-		void Core::loop()
+		bool Core::Loop()
 		{
-			//bool running = true;
 			SDL_Event e = { 0 };
-			//while (running)
-			{
-				while (SDL_PollEvent(&e) != 0)
-				{
-					if (e.type == SDL_QUIT)
-					{
-						//running = false;
-					}
-				}
-				for (size_t ei = 0; ei < _core.lock()->entities.size(); ei++)
-				{
-					_core.lock()->entities.at(ei)->tick();
-				}
-				glClearColor(0.39f, 0.8f, 0.93f, 1.0f);
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-				for (size_t ei = 0; ei < _core.lock()->entities.size(); ei++)
-				{
-					_core.lock()->entities.at(ei)->render();
-				}
-				SDL_GL_SwapWindow(_core.lock()->window);
-				std::cout << "End" << std::endl;
-			}
-		}
-#else
-	void Core::start()
-	{
-		bool running = true;
-		SDL_Event e = { 0 };
-		while (running)
-		{
 			while (SDL_PollEvent(&e) != 0)
 			{
 				if (e.type == SDL_QUIT)
 				{
-					running = false;
+					return false;
+				}
+				else if (e.type == SDL_KEYDOWN)
+				{
+					keyboard->addKey(e.key.keysym.sym);
+				}
+				else if (e.type == SDL_KEYUP)
+				{
+					keyboard->removeKey(e.key.keysym.sym);
 				}
 			}
+
 			for (size_t ei = 0; ei < entities.size(); ei++)
 			{
 				entities.at(ei)->tick();
 			}
+			screen->setWindowSize(window);
 			glClearColor(0.39f, 0.8f, 0.93f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			for (size_t ei = 0; ei < entities.size(); ei++)
@@ -113,14 +125,29 @@ namespace firstengine
 				entities.at(ei)->render();
 			}
 			SDL_GL_SwapWindow(window);
+			keyboard->clearUpDown();
+			return true;
 		}
-	}
-#endif
 
-	std::weak_ptr<Screen> Core::getScreen()
+	std::shared_ptr<Screen> Core::getScreen()
 	{
 		std::weak_ptr<Screen> rtn = screen;
-		return rtn;
+		return rtn.lock();
+	}
+
+	std::shared_ptr<Keyboard> Core::getKeyboard()
+	{
+		std::weak_ptr<Keyboard> rtn = keyboard;
+		return rtn.lock();
+	}
+
+	 Core::~Core()
+	{
+		alcMakeContextCurrent(NULL);
+		alcDestroyContext(alContext);
+		alcCloseDevice(alDevice);
+		SDL_DestroyWindow(window);
+		SDL_Quit();
 	}
 }
 /*

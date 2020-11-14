@@ -10,7 +10,7 @@ namespace firstengine
 	struct Resource;
 	struct CacheManager
 	{
-		friend struct Core;
+		friend struct firstengine::Core;
 		//template <typename T>
 		//std::shared_ptr<T> createResource()
 		//{
@@ -39,6 +39,7 @@ namespace firstengine
 				resources.push_back(rtn);
 				return rtn;
 		}
+		std::shared_ptr<Core> getCore() { return core.lock(); };
 	private:
 		std::weak_ptr<CacheManager> self;
 		std::weak_ptr<Core> core;

@@ -1,5 +1,6 @@
 #include "Component.h"
 #include "Entity.h"
+#include "Transform.h"
 
 namespace firstengine
 {
@@ -18,6 +19,15 @@ namespace firstengine
 
 	}
 
+	void Component::destroy()
+	{
+		onDestroy();
+	}
+	void Component::onDestroy()
+	{
+
+	}
+
 	std::shared_ptr<Entity> Component::getEntity()
 	{
 		return entity.lock();
@@ -25,5 +35,9 @@ namespace firstengine
 	std::shared_ptr<Core> Component::getCore()
 	{
 		return getEntity()->getCore();
+	}
+	std::shared_ptr<Transform> Component::getTransform()
+	{
+		getEntity()->getComponent<Transform>();
 	}
 }

@@ -5,12 +5,14 @@
 #include <string>
 namespace firstengine
 {
+	struct Core;
 	struct CacheManager;
 	struct Resource
 	{
-		friend struct CacheManager;
+		friend struct firstengine::CacheManager;
 		void load();
 		virtual void onLoad() {};
+		std::weak_ptr<Core> getCore();
 
 	protected:
 		std::string path;

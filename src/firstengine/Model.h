@@ -1,19 +1,22 @@
 #ifndef FIRSTENGINE_MODEL_H
 #define FIRSTENGINE_MODEL_H
 
-#include "Resource.h"
 #include <memory>
 #include <GL/glew.h>
+#include "Resource.h"
 
-namespace firstengine 
+namespace firstengine
 {
-	struct Texture;
+	struct Context;
+	struct Renderer;
 	struct Model : public Resource
 	{
-		Model::Model() { vaoId = NULL; numVerts = NULL;};
+		~Model();
 		void onLoad();
+		//GLuint getVaoId() { return vaoId; }
+		//size_t getNumVerts() { return numVerts; }
 	private:
-		friend struct Renderer;
+		friend struct firstengine::Renderer;
 		GLuint vaoId;
 		size_t numVerts;
 	};

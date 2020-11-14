@@ -4,16 +4,19 @@
 #include "Component.h"
 #include <GL/glew.h>
 #include <glm/glm.hpp>
-//#include <rend/rend.h>
+#include "fegraphics/fegraphics.h"
 #include <memory>
+
+
 
 namespace firstengine
 {
 	struct ShaderProgram;
-	struct vShader;
-	struct fShader;
 	struct Model;
 	struct Texture;
+	struct vShader;
+	struct fShader;
+
 	struct Renderer : public Component
 	{
 		void onInitialize();
@@ -26,18 +29,15 @@ namespace firstengine
 ;
 
 	private:
-		std::shared_ptr<ShaderProgram> createShaderProgam();
-
 		glm::mat4 getProjectionMat();
 		glm::mat4 getModelMat();
-		std::shared_ptr<Model> getModel();
 
-		std::shared_ptr<ShaderProgram> shaderProgram;
+		std::shared_ptr<fegraphics::ShaderProgram> shaderProgram;
 		bool dirty;
 		std::shared_ptr<vShader> vertexShader;
 		std::shared_ptr<fShader> fragmentShader;
-		std::shared_ptr<Model> model;
-		std::shared_ptr<Texture> texture;
+		std::shared_ptr<fegraphics::Model> model;
+		std::shared_ptr<fegraphics::Texture> texture;
 
 	};
 }
