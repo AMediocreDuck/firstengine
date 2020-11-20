@@ -15,7 +15,7 @@ namespace firstengine
 		ALsizei freq = 0;
 		std::vector<char> bufferData;
 
-		loadOgg(path + ".ogg", bufferData, format, freq);
+		loadOgg(path , bufferData, format, freq);
 
 		alBufferData(soundId, format, &bufferData.at(0),
 			static_cast<ALsizei>(bufferData.size()), freq);

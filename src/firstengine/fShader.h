@@ -7,12 +7,12 @@
 
 namespace firstengine
 {
-	struct Renderer;
+	struct Shader;
 	struct fShader : public Resource
 	{
 		void onLoad();
 	private:
-		friend struct firstengine::Renderer;
+		friend struct firstengine::Shader;
 		std::string data;
 		//GLuint shaderId;
 	};

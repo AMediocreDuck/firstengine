@@ -5,6 +5,7 @@
 
 #include <memory>
 #include <GL/glew.h> // GLuint
+#include "fegraphics/Texture.h"
 
 namespace firstengine
 {
@@ -16,10 +17,7 @@ namespace firstengine
 
 	private:
 		friend struct firstengine::Renderer;
-		unsigned char* data;
-		int w;
-		int h;
-		//GLuint textureId;
+		std::shared_ptr<fegraphics::Texture> fegTexture;
 	};
 }
 #endif

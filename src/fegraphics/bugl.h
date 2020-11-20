@@ -109,14 +109,13 @@ GLuint loadModel(const std::string& path, size_t *vertexCount,
   {
     throw std::exception();
   }
-
+  std::vector<std::string> tokens;
   while(!file.eof())
   {
     std::getline(file, currentLine);
     if(currentLine.length() < 1) continue;
     //std::cout << "Line [" << currentLine << "]" << std::endl;
 
-    std::vector<std::string> tokens;
     splitStringWhitespace<int>(currentLine, tokens);
     if(tokens.size() < 1) continue;
 

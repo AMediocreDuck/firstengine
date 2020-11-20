@@ -9,6 +9,7 @@ namespace fegraphics
 	struct Context;
 	struct Model
 	{
+		~Model();
 		void setModel(GLuint _vaoId, size_t _numVerts);
 		GLuint getVao() { return vaoId; };
 		size_t getNumVerts() { return numVerts; };

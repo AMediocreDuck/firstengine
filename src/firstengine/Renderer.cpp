@@ -10,6 +10,7 @@
 #include "Transform.h"
 #include "Model.h"
 #include "Texture.h"
+#include "Shader.h"
 
 #include "vShader.h"
 #include "fShader.h"
@@ -21,24 +22,14 @@ namespace firstengine
 {
 	void Renderer::onInitialize()
 	{
-		shaderProgram = getCore()->context->createShader();
-		model = getCore()->context->createModel();
-		texture = getCore()->context->createTexture();
+
 	}
 	void Renderer::onRender()
 	{
-		if (dirty)
-		{
-			shaderProgram->setShaders(vertexShader->data.c_str(), fragmentShader->data.c_str() );
-			dirty = false;
-		}
-
-		glUseProgram(shaderProgram->getProgramId());
-		shaderProgram->setUniform("u_Projection", getProjectionMat());
-		shaderProgram->setUniform("u_Model", getModelMat());
-		//shaderProgram->uploadProjectionMatrix(getProjectionMat());
-		//shaderProgram->uploadModelMatrix(getModelMat());
-		shaderProgram->render(model->getVao(), model->getNumVerts(), true, true, true, texture);
+		glUseProgram(shaderProgram->fegShaderProgram->getProgramId());
+		shaderProgram->fegShaderProgram->setUniform("u_Projection", getProjectionMat());
+		shaderProgram->fegShaderProgram->setUniform("u_Model", getModelMat());
+		shaderProgram->fegShaderProgram->render(model->fegModel->getVao(), model->fegModel->getNumVerts(), true, true, true, texture->fegTexture);
 	}
 
 	void Renderer::setvShader(const char* path)
@@ -53,14 +44,22 @@ namespace firstengine
 	}
 	void Renderer::setTexture(const char* path)
 	{
-		std::shared_ptr<Texture> rtn = getCore()->cacheManager->loadResource<Texture>(path);
-		texture->setTextureData(rtn->data, rtn->w, rtn->h);
+		texture = getCore()->cacheManager->loadResource<Texture>(path);
+		//texture->setTextureData(rtn->data, rtn->w, rtn->h);
 	}
 	void Renderer::setModel(const char* path)
 	{
 		std::shared_ptr<Model> rtn = getCore()->cacheManager->loadResource<Model>(path);
-		model->setModel(rtn->vaoId, rtn->numVerts);
+		//model->setModel(rtn->vaoId, rtn->numVerts);
+		model = rtn;
 	}
+	void Renderer::setShader(const char* path)
+	{
+		std::shared_ptr<Shader> rtn = getCore()->cacheManager->loadResource<Shader>(path);
+		//model->setModel(rtn->vaoId, rtn->numVerts);
+		shaderProgram = rtn;
+	}
+
 
 	glm::mat4 Renderer::getProjectionMat()
 	{

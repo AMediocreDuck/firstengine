@@ -4,23 +4,26 @@
 #include <memory>
 #include <GL/glew.h>
 #include "Resource.h"
+#include "fegraphics/Model.h"
 
 namespace firstengine
 {
-	struct Context;
 	struct Renderer;
+	/********************************************//**
+	*  \brief Wrapper Class for the Model Resource
+	***********************************************/
 	struct Model : public Resource
 	{
-		~Model();
+		/********************************************//**
+		*  \brief Loads the appropriate data for the Resource to be used
+		***********************************************/
 		void onLoad();
-		//GLuint getVaoId() { return vaoId; }
-		//size_t getNumVerts() { return numVerts; }
 	private:
 		friend struct firstengine::Renderer;
-		GLuint vaoId;
-		size_t numVerts;
+		std::shared_ptr<fegraphics::Model> fegModel;
 	};
 }
+
 
 
 #endif

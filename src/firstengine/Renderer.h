@@ -11,7 +11,7 @@
 
 namespace firstengine
 {
-	struct ShaderProgram;
+	struct Shader;
 	struct Model;
 	struct Texture;
 	struct vShader;
@@ -26,18 +26,20 @@ namespace firstengine
 		void setfShader(const char* path);
 		void setTexture(const char* path);
 		void setModel(const char* path);
+		void setShader(const char* path);
 ;
 
 	private:
 		glm::mat4 getProjectionMat();
 		glm::mat4 getModelMat();
 
-		std::shared_ptr<fegraphics::ShaderProgram> shaderProgram;
+		std::shared_ptr<Shader> shaderProgram;
+		//std::shared_ptr<fegraphics::ShaderProgram> shaderProgram;
 		bool dirty;
 		std::shared_ptr<vShader> vertexShader;
 		std::shared_ptr<fShader> fragmentShader;
-		std::shared_ptr<fegraphics::Model> model;
-		std::shared_ptr<fegraphics::Texture> texture;
+		std::shared_ptr<firstengine::Model> model;
+		std::shared_ptr<firstengine::Texture> texture;
 
 	};
 }

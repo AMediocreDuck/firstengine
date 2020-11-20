@@ -4,6 +4,12 @@
 
 namespace fegraphics
 {
+	Model::~Model()
+	{
+		GLuint destVao = vaoId;
+		glDeleteVertexArrays(1, &destVao);
+	}
+
 	void Model::setModel(GLuint _vaoId, size_t _numVerts)
 	{
 		vaoId = _vaoId;

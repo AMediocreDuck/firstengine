@@ -38,6 +38,6 @@ namespace firstengine
 	}
 	std::shared_ptr<Transform> Component::getTransform()
 	{
-		getEntity()->getComponent<Transform>();
+		return getEntity()->getComponent<Transform>();
 	}
 }
