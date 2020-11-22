@@ -40,10 +40,11 @@ namespace firstengine
 
 			for (size_t ri = 0; ri < resources.size(); ri++)
 			{
-				std::cout << resources.at(ri)->path.c_str() << std::endl;
+				
 				if (resources.at(ri)->path == path)
 				{
 					std::shared_ptr<T> rtn = std::dynamic_pointer_cast<T>(resources.at(ri));
+					std::cout << "Resource Loaded From Cache" << std::endl;
 					return rtn;
 				}
 			}
@@ -52,6 +53,7 @@ namespace firstengine
 				rtn->path = path;
 				rtn->onLoad();
 				resources.push_back(rtn);
+				std::cout << "New Resource Loaded" << std::endl;
 				return rtn;
 		}
 		/********************************************//**

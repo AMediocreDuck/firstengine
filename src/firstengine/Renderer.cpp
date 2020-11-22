@@ -10,10 +10,12 @@
 #include "Transform.h"
 #include "Model.h"
 #include "Texture.h"
-#include "Shader.h"
 
+#include "Shader.h"
 #include "vShader.h"
 #include "fShader.h"
+
+#include "Camera.h"
 
 
 
@@ -29,6 +31,7 @@ namespace firstengine
 		glUseProgram(shaderProgram->fegShaderProgram->getProgramId());
 		shaderProgram->fegShaderProgram->setUniform("u_Projection", getProjectionMat());
 		shaderProgram->fegShaderProgram->setUniform("u_Model", getModelMat());
+		shaderProgram->fegShaderProgram->setUniform("u_View", getCore()->getActiveCamera()->getViewMatrix());
 		shaderProgram->fegShaderProgram->render(model->fegModel->getVao(), model->fegModel->getNumVerts(), true, true, true, texture->fegTexture);
 	}
 

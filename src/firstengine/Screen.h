@@ -9,6 +9,8 @@ namespace firstengine
 	struct Screen
 	{
 		glm::mat4 getPerspective(float _angle, float _nearPlane, float _farPlane);
+		int getWidth() { return width; }
+		int getHeight() { return height; }
 		void setWindowSize(SDL_Window* window);
 	private:
 		int width;

@@ -23,6 +23,8 @@ namespace firstengine
 	struct Entity;
 	struct Screen;
 	struct Keyboard;
+
+	struct Camera;
 	struct Core
 	{
 		/********************************************//**
@@ -34,9 +36,13 @@ namespace firstengine
 		***********************************************/
 		static std::shared_ptr<Core> initialize();
 		/********************************************//**
-		* \brief Creates and adds an entity to cores local entity storage
+		* \brief Creates and adds an Entity to cores local Entity storage
 		***********************************************/
 		std::shared_ptr<Entity> addEntity();
+		/********************************************//**
+		* \brief Creates and adds a Camera Entity to cores local Camera storage
+		***********************************************/
+		std::shared_ptr<Entity> addCamera();
 		/********************************************//**
 		* \brief Starts the main programs loop
 		***********************************************/
@@ -49,8 +55,6 @@ namespace firstengine
 		* \brief Returns pointer to the Keyboard
 		***********************************************/
 		std::shared_ptr<Keyboard> getKeyboard();
-		
-
 
 		//SDL_Window* window;
 		//SDL_GLContext glContext;
@@ -58,27 +62,34 @@ namespace firstengine
 		* \brief Variable to keep track of whether or not sound is supported
 		***********************************************/
 		bool soundWorking;
-
 		/********************************************//**
 		* \brief Gateway to the graphics library
 		***********************************************/
 		std::shared_ptr<fegraphics::Context> context;
 		/********************************************//**
+		* \brief Returns the currently active Camera
+		***********************************************/
+		std::shared_ptr<Camera> getActiveCamera() { return activeCamera; }
+		/********************************************//**
 		* \brief Store of all resources that have been loaded
 		***********************************************/
 		std::shared_ptr<CacheManager> cacheManager;
+
 	private:
 #ifdef EMSCRIPTEN
 		static bool Loop();
 #else 
 		bool Loop();
 #endif
+		void setActiveCamera(std::shared_ptr<Camera> _activeCamera) { activeCamera = _activeCamera; }
 		SDL_Window* window;
 		SDL_GLContext glContext;
 		ALCdevice* alDevice;
 		ALCcontext* alContext;
 
 		std::vector<std::shared_ptr<Entity>> entities;
+		std::vector<std::shared_ptr<Entity>> cameras;
+		std::shared_ptr<Camera> activeCamera;
 		std::shared_ptr<Screen> screen;
 		std::shared_ptr<Keyboard> keyboard;
 		std::weak_ptr<Core> self;

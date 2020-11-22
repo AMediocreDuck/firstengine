@@ -16,6 +16,13 @@ struct Player : public Component
 int main()
 {
 	std::shared_ptr<Core> core = Core::initialize();
+
+	//Camera1
+	std::shared_ptr<Entity> cam1 = core->addCamera();
+	//Camera2
+	std::shared_ptr<Entity> cam2 = core->addCamera();
+	cam2->getComponent<Camera>()->setCamera(glm::vec3(0.0f, -5.0f, 0.0f), 800, 600, -90, 0);
+	//std::shared_ptr<Camera> cam1C = cam1->addComponent<Camera>();
 	//EntityOne
 	std::shared_ptr<Entity> pe = core->addEntity();
 	std::shared_ptr<Renderer> pr = pe->addComponent<Renderer>();

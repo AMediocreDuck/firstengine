@@ -11,6 +11,7 @@ namespace firstengine
 
 		void onInitialize();
 		glm::mat4 getModelMat();
+		glm::vec3 getPosition() { return position; }
 		void setPosition(glm::vec3 _position);
 		void setRotation(glm::vec3 _rotation);
 		void setScale(glm::vec3 _scale);

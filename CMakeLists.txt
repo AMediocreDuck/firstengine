@@ -54,6 +54,8 @@ src/firstengine/Texture.cpp
 src/firstengine/Model.cpp
 src/firstengine/vShader.cpp
 src/firstengine/fShader.cpp
+src/firstengine/Shader.cpp
+src/firstengine/Camera.cpp
 
 src/firstengine/Core.h
 src/firstengine/Entity.h
@@ -72,6 +74,8 @@ src/firstengine/Texture.h
 src/firstengine/Model.h
 src/firstengine/vShader.h
 src/firstengine/fShader.h
+src/firstengine/Shader.h
+src/firstengine/Camera.h
 )
 
 if(MSVC OR MINGW)

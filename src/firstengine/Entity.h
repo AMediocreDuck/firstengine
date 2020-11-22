@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 #include "Transform.h"
+#include "Camera.h"
 
 
 namespace firstengine
@@ -23,6 +24,16 @@ namespace firstengine
 			components.push_back(rtn);
 
 			rtn->onInitialize();
+			return rtn;
+		}
+		template <typename T, typename ...Args>
+		std::shared_ptr<T> addComponent(Args&&... args)
+		{
+			std::shared_ptr<T> rtn = std::make_shared<T>();
+			rtn->entity = self;
+			components.push_back(rtn);
+
+			rtn->onInitialize(std::forward<Args>(args)...);
 			return rtn;
 		}
 		void tick();

@@ -13,6 +13,10 @@
 #include "Sound.h"
 #include "SoundSource.h"
 #include "Keyboard.h"
+#include "Camera.h"
+#include "Shader.h"
+#include "fShader.h"
+#include "vShader.h"
 
 
 using namespace firstengine;

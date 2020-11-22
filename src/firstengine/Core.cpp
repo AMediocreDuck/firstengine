@@ -81,6 +81,16 @@ namespace firstengine
 		entities.push_back(rtn);
 		return rtn;
 	}
+	std::shared_ptr<Entity> Core::addCamera()
+	{
+		std::shared_ptr <Entity> rtn = std::make_shared <Entity>();
+		rtn->core = self;
+		rtn->self = rtn;
+		rtn->addComponent<Transform>();
+		rtn->addComponent<Camera>();
+		cameras.push_back(rtn);
+		return rtn;
+	}
 		void Core::start()
 		{
 #ifdef EMSCRIPTEN
@@ -122,7 +132,13 @@ namespace firstengine
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			for (size_t ei = 0; ei < entities.size(); ei++)
 			{
-				entities.at(ei)->render();
+				for (size_t i = 0; i < cameras.size(); i++)
+				{
+					setActiveCamera(cameras.at(i)->getComponent<Camera>());
+					//getWorld()->display();
+					entities.at(ei)->render();
+				}
+				//entities.at(ei)->render();
 			}
 			SDL_GL_SwapWindow(window);
 			keyboard->clearUpDown();
@@ -150,31 +166,3 @@ namespace firstengine
 		SDL_Quit();
 	}
 }
-/*
-void Core::start()
-{
-	bool running = true;
-	SDL_Event e = { 0 };
-	while (running)
-	{
-		while (SDL_PollEvent(&e) != 0)
-		{
-			if (e.type == SDL_QUIT)
-			{
-				running = false;
-			}
-		}
-		for (size_t ei = 0; ei < entities.size(); ei++)
-		{
-			entities.at(ei)->tick();
-		}
-		glClearColor(0.39f, 0.8f, 0.93f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		for (size_t ei = 0; ei < entities.size(); ei++)
-		{
-			entities.at(ei)->render();
-		}
-		SDL_GL_SwapWindow(window);
-	}
-}
-*/
