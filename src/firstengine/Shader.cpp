@@ -27,7 +27,9 @@ namespace firstengine
 			splittedStrings.push_back(item);
 		}
 		vertShader = cache.lock()->loadResource<vShader>(splittedStrings[0].c_str());
+		std::cout << "vShader Loaded" << std::endl;
 		fragShader = cache.lock()->loadResource<fShader>(splittedStrings[1].c_str());
+		std::cout << "fShader Loaded" << std::endl;
 		fegShaderProgram->setShaders(vertShader->data.c_str(), fragShader->data.c_str());
 
 	}

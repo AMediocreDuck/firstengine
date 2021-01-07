@@ -10,20 +10,11 @@ namespace firstengine
 {
 	void Camera::onInitialize()
 	{
-		//getCore()->
-		setCamera(glm::vec3(5.0f, 5.0f, 5.0f), getCore()->getScreen()->getWidth(), getCore()->getScreen()->getHeight(), -90.0f, 0.0f);
+		std::shared_ptr<Camera> self = getEntity()->getComponent<Camera>();
+		getCore()->cameras.push_back(self);
+
 	}
 
-	void Camera::setCamera(glm::vec3 _cameraPos, int _width, int _height, float _yaw, float _pitch)
-	{
-		getEntity()->getComponent<Transform>()->setPosition(_cameraPos);
-		//cameraPos = _cameraPos;
-		lastMouseX = _width / 2;
-		lastMouseY = _height / 2;
-		getEntity()->getComponent<Transform>()->setRotation(glm::vec3(0.0f,_pitch, _yaw));
-		//yaw = _yaw;
-		//pitch = _pitch;
-	}
 
 	//void Camera::setCameraDirection(float _mouseX, float _mouseY, float _xOffset, float _yOffset, float _mouseSensitivity)
 	//{
@@ -53,9 +44,9 @@ namespace firstengine
 
 	glm::mat4 Camera::getViewMatrix()
 	{
-		glm::mat4 view;
-		view = glm::lookAt(getCameraPos(), getCameraPos() + cameraFront, cameraUp);
-		return view;
+		//glm::mat4 view;
+		//view = glm::lookAt(getCameraPos(), getCameraPos() + cameraFront, cameraUp);
+		return glm::inverse(getEntity()->getComponent<Transform>()->getModelMat());
 	}
 
 }

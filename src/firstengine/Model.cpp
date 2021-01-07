@@ -9,7 +9,10 @@ namespace firstengine
 	void Model::onLoad()
 	{
 		fegModel = cache.lock()->getCore()->context->createModel();
+
 		size_t numVerts = 0;
-		fegModel->setModel(buLoadModel(path, &numVerts), numVerts);
+		GLuint vaoID = buLoadModel(path, &numVerts);
+		std::cout << "Model About to be Loaded" << std::endl;
+		fegModel->setModel( vaoID, numVerts);
 	}
 }

@@ -20,12 +20,9 @@ namespace firstengine
 		std::shared_ptr<Core> rtn = std::make_shared<Core>();
 		rtn->self = rtn;
 		rtn->soundWorking = true;
-
-		int w;
-		int h;
 		rtn->window = SDL_CreateWindow("firstengine",
 			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-			800, 600,
+			800, 800,
 			SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 		rtn->screen = std::make_shared<Screen>();
 		rtn->screen->setWindowSize(rtn->window);
@@ -81,16 +78,16 @@ namespace firstengine
 		entities.push_back(rtn);
 		return rtn;
 	}
-	std::shared_ptr<Entity> Core::addCamera()
-	{
-		std::shared_ptr <Entity> rtn = std::make_shared <Entity>();
-		rtn->core = self;
-		rtn->self = rtn;
-		rtn->addComponent<Transform>();
-		rtn->addComponent<Camera>();
-		cameras.push_back(rtn);
-		return rtn;
-	}
+	//std::shared_ptr<Entity> Core::addCamera()
+	//{
+	//	std::shared_ptr <Entity> rtn = std::make_shared <Entity>();
+	//	rtn->core = self;
+	//	rtn->self = rtn;
+	//	rtn->addComponent<Transform>();
+	//	rtn->addComponent<Camera>();
+	//	cameras.push_back(rtn);
+	//	return rtn;
+	//}
 		void Core::start()
 		{
 #ifdef EMSCRIPTEN
@@ -107,8 +104,12 @@ namespace firstengine
 		bool Core::Loop()
 		{
 			SDL_Event e = { 0 };
+			Uint32 frameStart = SDL_GetTicks();
+			Uint32 frameEnd;				
+
 			while (SDL_PollEvent(&e) != 0)
 			{
+
 				if (e.type == SDL_QUIT)
 				{
 					return false;
@@ -134,14 +135,25 @@ namespace firstengine
 			{
 				for (size_t i = 0; i < cameras.size(); i++)
 				{
-					setActiveCamera(cameras.at(i)->getComponent<Camera>());
-					//getWorld()->display();
+					setActiveCamera(cameras.at(i).lock());
+					//setActiveCamera(cameras.at(i)->getComponent<Camera>());
+
 					entities.at(ei)->render();
 				}
 				//entities.at(ei)->render();
 			}
 			SDL_GL_SwapWindow(window);
 			keyboard->clearUpDown();
+
+			frameEnd = SDL_GetTicks() - frameStart;
+			if (frameDelay > frameEnd)
+			{
+				SDL_Delay(frameDelay - frameEnd);
+			}
+			frameEnd = SDL_GetTicks();
+			deltaTime = (frameEnd - frameStart) / 1000.0f;
+			std::cout << deltaTime << std::endl;
+
 			return true;
 		}
 
@@ -155,6 +167,20 @@ namespace firstengine
 	{
 		std::weak_ptr<Keyboard> rtn = keyboard;
 		return rtn.lock();
+	}
+
+	void Core::setFPS(int _fps)
+	{
+		if (_fps == 0)
+		{
+			FPS = 1000;
+		}
+		else
+		{
+			FPS = _fps;
+		}
+
+		frameDelay = 1000.0f / FPS;
 	}
 
 	 Core::~Core()

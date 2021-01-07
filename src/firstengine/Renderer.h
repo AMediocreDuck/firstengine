@@ -25,6 +25,7 @@ namespace firstengine
 		void setvShader(const char* path);
 		void setfShader(const char* path);
 		void setTexture(const char* path);
+		void addTexture(const char* path);
 		void setModel(const char* path);
 		void setShader(const char* path);
 ;
@@ -35,11 +36,11 @@ namespace firstengine
 
 		std::shared_ptr<Shader> shaderProgram;
 		//std::shared_ptr<fegraphics::ShaderProgram> shaderProgram;
-		bool dirty;
+		bool dirty = true;;
 		std::shared_ptr<vShader> vertexShader;
 		std::shared_ptr<fShader> fragmentShader;
 		std::shared_ptr<firstengine::Model> model;
-		std::shared_ptr<firstengine::Texture> texture;
+		std::vector<std::shared_ptr<Texture>> Textures;
 
 	};
 }

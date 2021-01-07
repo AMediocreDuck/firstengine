@@ -1,21 +1,23 @@
 #ifndef FIRSTENGINE_FIRSTENGINE_H
 #define FIRSTENGINE_FIRSTENGINE_H
 
-#include "Core.h"
 #include "CacheManager.h"
-#include "Resource.h"
-#include "Entity.h"
+#include "Camera.h"
 #include "Component.h"
+#include "Core.h"
+#include "Entity.h"
+#include "Exception.h"
+#include "fShader.h"
+#include "Keyboard.h"
+#include "Model.h"
 #include "Renderer.h"
-#include "firstengine/Exception.h"
-#include "Transform.h"
+#include "Resource.h"
 #include "Screen.h"
+#include "Shader.h"
 #include "Sound.h"
 #include "SoundSource.h"
-#include "Keyboard.h"
-#include "Camera.h"
-#include "Shader.h"
-#include "fShader.h"
+#include "Texture.h"
+#include "Transform.h"
 #include "vShader.h"
 
 

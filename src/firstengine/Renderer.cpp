@@ -29,10 +29,39 @@ namespace firstengine
 	void Renderer::onRender()
 	{
 		glUseProgram(shaderProgram->fegShaderProgram->getProgramId());
+		shaderProgram->fegShaderProgram->setUniform("u_Albedo", 0);
+		shaderProgram->fegShaderProgram->setUniform("u_Ao", 1);
+		shaderProgram->fegShaderProgram->setUniform("u_Metallic", 2);
+		shaderProgram->fegShaderProgram->setUniform("u_Normal", 3);
+		shaderProgram->fegShaderProgram->setUniform("u_Roughness", 4);
+
 		shaderProgram->fegShaderProgram->setUniform("u_Projection", getProjectionMat());
 		shaderProgram->fegShaderProgram->setUniform("u_Model", getModelMat());
 		shaderProgram->fegShaderProgram->setUniform("u_View", getCore()->getActiveCamera()->getViewMatrix());
-		shaderProgram->fegShaderProgram->render(model->fegModel->getVao(), model->fegModel->getNumVerts(), true, true, true, texture->fegTexture);
+		shaderProgram->fegShaderProgram->setUniform("u_CameraPos", getCore()->getActiveCamera()->getTransform()->getPosition());
+
+		//shaderProgram->fegShaderProgram->setUniform("u_PointLights[0].position", getCore()->getActiveCamera()->getTransform()->getPosition());
+		//shaderProgram->fegShaderProgram->setUniform("u_PointLights[0].colour", glm::vec3(150.0f, 150.0f, 150.0f));
+
+		shaderProgram->fegShaderProgram->setUniform("u_PointLights[0].position", glm::vec3(2.0f, -0.0f, -6.0f));
+		shaderProgram->fegShaderProgram->setUniform("u_PointLights[0].colour", glm::vec3(150.0f, 150.0f, 150.0f));
+		
+		shaderProgram->fegShaderProgram->setUniform("u_PointLights[1].position", glm::vec3(1.0f, -0.0f, -2.0f));
+		shaderProgram->fegShaderProgram->setUniform("u_PointLights[1].colour", glm::vec3(150.0f, 150.0f, 150.0f));
+
+		shaderProgram->fegShaderProgram->setUniform("u_PointLights[2].position", glm::vec3(1.0f, -0.0f, -2.0f));
+		shaderProgram->fegShaderProgram->setUniform("u_PointLights[2].colour", glm::vec3(150.0f, 150.0f, 150.0f));
+		
+		shaderProgram->fegShaderProgram->setUniform("u_PointLights[3].position", glm::vec3(1.0f, -0.0f, -2.0f));
+		shaderProgram->fegShaderProgram->setUniform("u_PointLights[3].colour", glm::vec3(150.0f, 150.0f, 150.0f));
+
+		std::vector<std::shared_ptr<fegraphics::Texture>> gTextures;
+		for (int i = 0; i < Textures.size(); i++)
+		{
+			gTextures.push_back(Textures.at(i)->fegTexture);
+		}
+
+		shaderProgram->fegShaderProgram->render(model->fegModel->getVao(), model->fegModel->getNumVerts(), true, true, true, gTextures);
 	}
 
 	void Renderer::setvShader(const char* path)
@@ -47,7 +76,14 @@ namespace firstengine
 	}
 	void Renderer::setTexture(const char* path)
 	{
+		//texture = getCore()->cacheManager->loadResource<Texture>(path);
+		//texture->setTextureData(rtn->data, rtn->w, rtn->h);
+	}
+	void Renderer::addTexture(const char* path)
+	{
+		std::shared_ptr<firstengine::Texture> texture;
 		texture = getCore()->cacheManager->loadResource<Texture>(path);
+		Textures.push_back(texture);
 		//texture->setTextureData(rtn->data, rtn->w, rtn->h);
 	}
 	void Renderer::setModel(const char* path)

@@ -42,7 +42,7 @@ namespace firstengine
 		/********************************************//**
 		* \brief Creates and adds a Camera Entity to cores local Camera storage
 		***********************************************/
-		std::shared_ptr<Entity> addCamera();
+		//std::shared_ptr<Entity> addCamera();
 		/********************************************//**
 		* \brief Starts the main programs loop
 		***********************************************/
@@ -56,8 +56,16 @@ namespace firstengine
 		***********************************************/
 		std::shared_ptr<Keyboard> getKeyboard();
 
-		//SDL_Window* window;
-		//SDL_GLContext glContext;
+		/********************************************//**
+		* \brief Returns the deltaTime 
+		***********************************************/
+		float getDeltaTime() { return deltaTime; }
+
+		/********************************************//**
+		* \brief Sets the engines framerate 
+		***********************************************/
+		void setFPS(int _fps);
+
 		/********************************************//**
 		* \brief Variable to keep track of whether or not sound is supported
 		***********************************************/
@@ -69,7 +77,7 @@ namespace firstengine
 		/********************************************//**
 		* \brief Returns the currently active Camera
 		***********************************************/
-		std::shared_ptr<Camera> getActiveCamera() { return activeCamera; }
+		std::shared_ptr<Camera> getActiveCamera() { return activeCamera.lock(); }
 		/********************************************//**
 		* \brief Store of all resources that have been loaded
 		***********************************************/
@@ -81,6 +89,7 @@ namespace firstengine
 #else 
 		bool Loop();
 #endif
+		friend struct firstengine::Camera;
 		void setActiveCamera(std::shared_ptr<Camera> _activeCamera) { activeCamera = _activeCamera; }
 		SDL_Window* window;
 		SDL_GLContext glContext;
@@ -88,11 +97,15 @@ namespace firstengine
 		ALCcontext* alContext;
 
 		std::vector<std::shared_ptr<Entity>> entities;
-		std::vector<std::shared_ptr<Entity>> cameras;
-		std::shared_ptr<Camera> activeCamera;
+		std::vector<std::weak_ptr<Camera>> cameras;
+		std::weak_ptr<Camera> activeCamera;
 		std::shared_ptr<Screen> screen;
 		std::shared_ptr<Keyboard> keyboard;
 		std::weak_ptr<Core> self;
+
+		float FPS = 60;
+		float frameDelay = 1000.0f / FPS; 
+		float deltaTime = 0;
 
 	};
 }

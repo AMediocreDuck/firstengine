@@ -47,7 +47,7 @@ namespace fegraphics
 
 		void resetMatrixes();*/
 
-		void render(GLuint vaoId, size_t numOfVerts, bool depthTest, bool cullFace, bool blend, std::shared_ptr<Texture> _texture1);
+		void render(GLuint vaoId, size_t numOfVerts, bool depthTest, bool cullFace, bool blend, std::vector<std::shared_ptr<Texture>> _texture);
 		void setBackgroundColour(glm::vec4 _backgroundColour);
 		void detachShader();
 

@@ -110,6 +110,12 @@ namespace fegraphics
 		glAttachShader(programId, vertexShaderId);
 		glAttachShader(programId, fragmentShaderId);
 
+		glBindAttribLocation(programId, 0, "a_Position");
+		glBindAttribLocation(programId, 1, "a_TexCoord");
+		glBindAttribLocation(programId, 2, "a_Normal");
+		glBindAttribLocation(programId, 3, "a_LightMapCoord");
+		glBindAttribLocation(programId, 4, "a_Tangent");
+		glBindAttribLocation(programId, 5, "a_Bitangent");
 
 		glLinkProgram(programId);
 		glGetProgramiv(programId, GL_LINK_STATUS, &success);
@@ -120,7 +126,7 @@ namespace fegraphics
 		detachShader();
 
 	};
-	void ShaderProgram::render(GLuint vaoId, size_t numOfVerts, bool depthTest, bool cullFace, bool blend, std::shared_ptr<Texture> _texture1)
+	void ShaderProgram::render(GLuint vaoId, size_t numOfVerts, bool depthTest, bool cullFace, bool blend, std::vector<std::shared_ptr<Texture>> _texture)
 	{
 		if (depthTest)
 		{
@@ -137,18 +143,27 @@ namespace fegraphics
 		}
 
 		glBindVertexArray(vaoId);
-
-		if (_texture1 != nullptr)
+		for (int x = 0; x < _texture.size(); x++)
 		{
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, _texture1->getId());
+			glActiveTexture(GL_TEXTURE0 + x);
+			glBindTexture(GL_TEXTURE_2D, _texture.at(x)->getId());
 		}
+		//if (_texture1 != nullptr)
+		//{
+		//	glActiveTexture(GL_TEXTURE0);
+		//	glBindTexture(GL_TEXTURE_2D, _texture1->getId());
+		//}
 
 		// Draw 3 vertices (a triangle)
 		glDrawArrays(GL_TRIANGLES, 0, numOfVerts);
 
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		for (int x = 0; x < _texture.size(); x++)
+		{
+			glActiveTexture(GL_TEXTURE0 + x);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+		//glActiveTexture(GL_TEXTURE0);
+		//glBindTexture(GL_TEXTURE_2D, 0);
 		glBindVertexArray(0);
 
 		glDisable(GL_DEPTH_TEST);
