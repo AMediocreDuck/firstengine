@@ -6,7 +6,9 @@
 
 namespace firstengine
 {
-
+	/********************************************//**
+	* \brief Error Handling
+	***********************************************/
 	struct Exception : public std::exception
 	{
 		Exception(const std::string& message);

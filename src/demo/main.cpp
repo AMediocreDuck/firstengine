@@ -78,6 +78,7 @@ int main()
 	//std::shared_ptr<SoundSource> pss = pe->addComponent<SoundSource>();
 	//std::shared_ptr<Player> pm = pe->addComponent<Player>();
 	pe->getComponent<Transform>()->setPosition(glm::vec3(0.0f,1.0f, -10.0f));
+	std::shared_ptr<RigidBody> prb = pe->addComponent<RigidBody>();
 	//pe->getComponent<Transform>()->setScale(glm::vec3(0.1, 0.1, 0.1));
 	std::shared_ptr<Rotate> prr = pe->addComponent<Rotate>();
 	//pss->setSound("../src/demo/resources/sounds/HeartBeat.ogg");

@@ -8,7 +8,9 @@
 
 namespace firstengine
 {
-
+	/********************************************//**
+	* \brief Camera Component: Used to determine which Entity has a Camera attached
+	***********************************************/
 	struct Camera : public Component
 	{
 		/********************************************//**

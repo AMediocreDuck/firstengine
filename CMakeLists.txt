@@ -33,8 +33,31 @@ src/fegraphics/Texture.h
 src/fegraphics/Model.h
 src/fegraphics/Context.h
 src/fegraphics/Exception.h
+)
 
+add_library(fephysics
+src/fephysics/BasicNewtonianPhysics.cpp
+src/fephysics/CollisionDetection.cpp
+src/fephysics/DynamicObject.cpp
+src/fephysics/GameObject.cpp
+src/fephysics/Geometry.cpp
+src/fephysics/GeometryVolume.cpp
+src/fephysics/KinematicEquations.cpp
+src/fephysics/Projectile.cpp
+src/fephysics/VectorMath.cpp
+src/fephysics/VelocityAcceleration.cpp
+src/fephysics/fephysics.h
 
+src/fephysics/BasicNewtonianPhysics.h
+src/fephysics/CollisionDetection.h
+src/fephysics/DynamicObject.h
+src/fephysics/GameObject.h
+src/fephysics/Geometry.h
+src/fephysics/GeometryVolume.h
+src/fephysics/KinematicEquations.h
+src/fephysics/Projectile.h
+src/fephysics/VectorMath.h
+src/fephysics/VelocityAcceleration.h
 )
 # .h file included to show in VS
 add_library(firstengine
@@ -49,6 +72,7 @@ src/firstengine/Keyboard.cpp
 src/firstengine/Model.cpp
 src/firstengine/Renderer.cpp
 src/firstengine/Resource.cpp
+src/firstengine/RigidBody.cpp
 src/firstengine/Screen.cpp
 src/firstengine/Shader.cpp
 src/firstengine/Sound.cpp
@@ -69,6 +93,7 @@ src/firstengine/Keyboard.h
 src/firstengine/Model.h
 src/firstengine/Renderer.h
 src/firstengine/Resource.h
+src/firstengine/RigidBody.h
 src/firstengine/Screen.h
 src/firstengine/Shader.h
 src/firstengine/Sound.h
@@ -80,12 +105,13 @@ src/firstengine/vShader.h
 )
 
 if(MSVC OR MINGW)
-	target_link_libraries(fegraphics SDL2 glew32 opengl32)
-	target_link_libraries(firstengine fegraphics SDL2 glew32 OpenAL32)
+	target_link_libraries(fephysics glew32 opengl32)
+	target_link_libraries(firstengine fegraphics fephysics SDL2 glew32 OpenAL32)
 
 else()
+	target_link_libraries(fephysics GLEW GL)
 	target_link_libraries(fegraphics SDL2 GLEW GL)
-	target_link_libraries(firstengine fegraphics SDL2 GLEW OpenAL32)
+	target_link_libraries(firstengine fegraphics fephysics SDL2 GLEW OpenAL32)
 endif()
 
 add_executable(demo

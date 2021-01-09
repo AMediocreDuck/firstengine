@@ -8,6 +8,9 @@
 namespace firstengine
 {
 	struct Shader;
+	/********************************************//**
+	* \brief Wrapper Class for Fragment Shader
+	***********************************************/
 	struct fShader : public Resource
 	{
 		void onLoad();

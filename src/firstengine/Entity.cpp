@@ -10,6 +10,14 @@ namespace firstengine
 			components.at(ci)->tick();
 		}
 	}
+
+	void Entity::afterTick()
+	{
+		for (size_t ci = 0; ci < components.size(); ci++)
+		{
+			components.at(ci)->afterTick();
+		}
+	}
 	void Entity::render()
 	{
 		for (size_t ci = 0; ci < components.size(); ci++)

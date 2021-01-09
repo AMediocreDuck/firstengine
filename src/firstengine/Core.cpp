@@ -128,6 +128,10 @@ namespace firstengine
 			{
 				entities.at(ei)->tick();
 			}
+			for (size_t ei = 0; ei < entities.size(); ei++)
+			{
+				entities.at(ei)->afterTick();
+			}
 			screen->setWindowSize(window);
 			glClearColor(0.39f, 0.8f, 0.93f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -152,7 +156,7 @@ namespace firstengine
 			}
 			frameEnd = SDL_GetTicks();
 			deltaTime = (frameEnd - frameStart) / 1000.0f;
-			std::cout << deltaTime << std::endl;
+			//std::cout << deltaTime << std::endl;
 
 			return true;
 		}

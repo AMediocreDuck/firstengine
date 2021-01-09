@@ -12,6 +12,7 @@
 #include "Model.h"
 #include "Renderer.h"
 #include "Resource.h"
+#include "RigidBody.h"
 #include "Screen.h"
 #include "Shader.h"
 #include "Sound.h"

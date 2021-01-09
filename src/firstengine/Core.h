@@ -25,6 +25,9 @@ namespace firstengine
 	struct Keyboard;
 
 	struct Camera;
+	/********************************************//**
+	* \brief Heart of the Engine: Central Hub for all Functionality
+	***********************************************/
 	struct Core
 	{
 		/********************************************//**
@@ -105,7 +108,7 @@ namespace firstengine
 
 		float FPS = 60;
 		float frameDelay = 1000.0f / FPS; 
-		float deltaTime = 0;
+		float deltaTime;
 
 	};
 }
