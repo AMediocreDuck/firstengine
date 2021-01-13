@@ -63,6 +63,7 @@ src/fephysics/VelocityAcceleration.h
 add_library(firstengine
 src/firstengine/CacheManager.cpp
 src/firstengine/Camera.cpp
+src/firstengine/Collider.cpp
 src/firstengine/Component.cpp
 src/firstengine/Core.cpp
 src/firstengine/Entity.cpp
@@ -77,6 +78,7 @@ src/firstengine/Screen.cpp
 src/firstengine/Shader.cpp
 src/firstengine/Sound.cpp
 src/firstengine/SoundSource.cpp
+src/firstengine/SphereCollider.cpp
 src/firstengine/Texture.cpp
 src/firstengine/Transform.cpp
 src/firstengine/vShader.cpp
@@ -84,6 +86,7 @@ src/firstengine/vShader.cpp
 src/firstengine/firstEngine.h
 src/firstengine/CacheManager.h
 src/firstengine/Camera.h
+src/firstengine/Collider.h
 src/firstengine/Component.h
 src/firstengine/Core.h
 src/firstengine/Entity.h
@@ -98,6 +101,7 @@ src/firstengine/Screen.h
 src/firstengine/Shader.h
 src/firstengine/Sound.h
 src/firstengine/SoundSource.h
+src/firstengine/SphereCollider.h
 src/firstengine/Texture.h
 src/firstengine/Transform.h
 src/firstengine/vShader.h

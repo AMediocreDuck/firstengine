@@ -10,8 +10,14 @@
 namespace firstengine
 {
 	struct Renderer;
+	/********************************************//**
+	* \brief Stores the data for a texture
+	***********************************************/
 	struct Texture : public Resource
 	{
+		/********************************************//**
+		* \brief Used to load in textures
+		***********************************************/
 		void onLoad();
 
 

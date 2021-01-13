@@ -4,6 +4,7 @@
 
 namespace firstengine
 {
+
 	void vShader::onLoad()
 	{
 		std::ifstream inFile;

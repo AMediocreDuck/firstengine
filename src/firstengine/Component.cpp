@@ -21,6 +21,10 @@ namespace firstengine
 
 	void Component::onAfterTick() {};
 
+	//void Component::collision() {};
+
+	void Component::onCollision(std::shared_ptr<Entity> Collision) {};
+
 	void Component::render()
 	{
 		onRender();

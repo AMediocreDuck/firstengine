@@ -42,6 +42,11 @@ namespace firstengine
 		*  \brief Tick called after all other tick() have ran
 		***********************************************/
 		virtual void onAfterTick();
+
+		/********************************************//**
+		*  \brief Function called anytime a Collision is detected
+		***********************************************/
+		virtual void onCollision(std::shared_ptr<Entity> Collision);
 		/********************************************//**
 		*  \brief Function called every tick, used to call onRender
 		***********************************************/

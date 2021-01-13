@@ -16,17 +16,42 @@ namespace firstengine
 	struct Texture;
 	struct vShader;
 	struct fShader;
-
+	/********************************************//**
+	* \brief Component for rendering to the screen
+	***********************************************/
 	struct Renderer : public Component
 	{
+		/********************************************//**
+		* \brief Ran when the Renderer is first created 
+		***********************************************/
 		void onInitialize();
+		/********************************************//**
+		* \brief Holds all of the Rendering functionality
+		***********************************************/
 		void onRender();
-
+		/********************************************//**
+		* \brief Sets the Vertex Shader the Renderer will use
+		***********************************************/
 		void setvShader(const char* path);
+		/********************************************//**
+		* \brief Sets the Fragment Shader the Renderer will use
+		***********************************************/
 		void setfShader(const char* path);
-		void setTexture(const char* path);
+		/********************************************//**
+		* \brief Returns the deltaTime
+		***********************************************/
+		//void setTexture(const char* path);
+		/********************************************//**
+		* \brief Adds a Texture to the Renderer that will be used when Rendering
+		***********************************************/
 		void addTexture(const char* path);
+		/********************************************//**
+		* \brief Sets which Model should be Rendered
+		***********************************************/
 		void setModel(const char* path);
+		/********************************************//**
+		* \brief Used to set both the Fragment and Vertex Shader
+		***********************************************/
 		void setShader(const char* path);
 ;
 

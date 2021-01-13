@@ -12,8 +12,14 @@
 namespace firstengine
 {
 	struct SoundSource;
+	/********************************************//**
+	* \brief Resource for Sounds
+	***********************************************/
 	struct Sound : public Resource
 	{
+		/********************************************//**
+		* \brief Used to load all the required data
+		***********************************************/
 		void onLoad();
 	private:
 		friend struct firstengine::SoundSource;

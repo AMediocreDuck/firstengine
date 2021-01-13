@@ -16,17 +16,17 @@ void PE::CollisionDetection::SphereToPointOnPlane(GameObject& i_GameObject, glm:
 		o_collision = true;  	o_Distance = distance;
 	}
 }
-void PE::CollisionDetection::SphereToSphere(GameObject& i_GameObjectA, GameObject& i_GameObjectB, glm::vec3& o_ContactPoint, bool& o_Collision)
+void PE::CollisionDetection::SphereToSphere(std::shared_ptr<GameObject> i_GameObjectA, std::shared_ptr<GameObject> i_GameObjectB, glm::vec3& o_ContactPoint, bool& o_Collision)
 {
 	glm::vec3 centerA(0.0f, 0.0f, 0.0f);  	
 	glm::vec3 centerB(0.0f, 0.0f, 0.0f);  	
 	glm::vec3 radiusA(0.0f, 0.0f, 0.0f);  	
 	glm::vec3 radiusB(0.0f, 0.0f, 0.0f);  	
 	float distance = 0.0f;  	
-	i_GameObjectA.GetPosition(centerA);  	
-	i_GameObjectB.GetPosition(centerB);  	
-	i_GameObjectA.GetScale(radiusA);  	
-	i_GameObjectB.GetScale(radiusB);  	
+	i_GameObjectA->GetPosition(centerA);  	
+	i_GameObjectB->GetPosition(centerB);  	
+	i_GameObjectA->GetScale(radiusA);  	
+	i_GameObjectB->GetScale(radiusB);  	
 	distance = glm::distance(centerA, centerB);  	
 	glm::vec3 normalised(centerA - centerB);
 	float mag = normalised.x*normalised.x + normalised.y*normalised.y + normalised.z*normalised.z;

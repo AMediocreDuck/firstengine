@@ -13,8 +13,12 @@ namespace firstengine
 		{
 			alGenSources(1, &ssId);
 		}
-		//alListener3f(AL_POSITION, 0.0f, 0.0f, 0.0f);
-		//alSource3f(sid, AL_POSITION, 0.0f, 0.0f, 0.0f);
+		ALint state = 0;
+		alGetSourcei(ssId, AL_SOURCE_STATE, &state);
+		alListener3f(AL_POSITION, 0.0f, 0.0f, 0.0f);
+		alSource3f(ssId, AL_POSITION, 0.0f, 0.0f, 0.0f);
+		alSourcef(ssId, AL_GAIN, 0.5f);
+		alSourcei(ssId, AL_LOOPING, AL_TRUE);
 		//alSourcei(ssId, AL_BUFFER, sound->soundId);
 		//alSourcePlay(ssId);
 
@@ -40,6 +44,12 @@ namespace firstengine
 			sound = getCore()->cacheManager->loadResource<Sound>(path);
 			alSourcei(ssId, AL_BUFFER, sound->soundId);
 			alSourcePlay(ssId);
+
+			
+
+			ALint state = 0;
+			alGetSourcei(ssId, AL_SOURCE_STATE, &state);
+			std::cout << state << std::endl;
 		}
 	}
 	void SoundSource::onDestroy()

@@ -25,6 +25,7 @@ namespace firstengine
 	struct Keyboard;
 
 	struct Camera;
+	struct RigidBody;
 	/********************************************//**
 	* \brief Heart of the Engine: Central Hub for all Functionality
 	***********************************************/
@@ -93,6 +94,7 @@ namespace firstengine
 		bool Loop();
 #endif
 		friend struct firstengine::Camera;
+		friend struct firstengine::RigidBody;
 		void setActiveCamera(std::shared_ptr<Camera> _activeCamera) { activeCamera = _activeCamera; }
 		SDL_Window* window;
 		SDL_GLContext glContext;

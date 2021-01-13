@@ -55,6 +55,12 @@ struct Rotate : public Component
 	{
 		getTransform()->setRotation(getTransform()->getRotate() + glm::vec3(0.0, 1 * getCore()->getDeltaTime(), 0.0));
 	}
+
+	void onCollision(std::shared_ptr<Entity> Collision)
+	{
+		std::cout << "Collision Made" << std::endl;
+		getEntity()->getComponent<RigidBody>()->setKinematic(true);
+	}
 };
 
 
@@ -75,13 +81,14 @@ int main()
 	//EntityOne
 	std::shared_ptr<Entity> pe = core->addEntity();
 	std::shared_ptr<Renderer> pr = pe->addComponent<Renderer>();
-	//std::shared_ptr<SoundSource> pss = pe->addComponent<SoundSource>();
+	std::shared_ptr<SoundSource> pss = pe->addComponent<SoundSource>();
 	//std::shared_ptr<Player> pm = pe->addComponent<Player>();
-	pe->getComponent<Transform>()->setPosition(glm::vec3(0.0f,1.0f, -10.0f));
+	pe->getComponent<Transform>()->setPosition(glm::vec3(0.0f,20.0f, -10.0f));
 	std::shared_ptr<RigidBody> prb = pe->addComponent<RigidBody>();
+	prb->setScale(2.0f,2.0f,2.0f);
 	//pe->getComponent<Transform>()->setScale(glm::vec3(0.1, 0.1, 0.1));
 	std::shared_ptr<Rotate> prr = pe->addComponent<Rotate>();
-	//pss->setSound("../src/demo/resources/sounds/HeartBeat.ogg");
+	pss->setSound("./Resources/sounds/anosou.ogg");
 	pr->setShader("./Resources/shaders/VertexShader.txt;./Resources/shaders/FragmentShader.txt");
 	pr->setModel("./Resources/models/better_ball.obj");
 	pr->addTexture("./Resources/pbrTextures/narrowbrick1-albedo.png");
@@ -114,6 +121,9 @@ int main()
 	std::shared_ptr<Renderer> pr3 = pe3->addComponent<Renderer>();
 	pe3->getComponent<Transform>()->setPosition(glm::vec3(0.0f, -1.0f, -10.0f));
 	std::shared_ptr<Rotate> prr3 = pe3->addComponent<Rotate>();
+	std::shared_ptr<RigidBody> prb3 = pe3->addComponent<RigidBody>();
+	prb3->setScale(2.0f, 2.0f, 2.0f);
+	prb3->setKinematic(true);
 	pr3->setShader("./Resources/shaders/VertexShader.txt;./Resources/shaders/FragmentShader.txt");
 	pr3->setModel("./Resources/models/better_ball.obj");
 	pr3->addTexture("./Resources/pbrTextures/wsm-albedo.png");

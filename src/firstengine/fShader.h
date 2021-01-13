@@ -13,6 +13,9 @@ namespace firstengine
 	***********************************************/
 	struct fShader : public Resource
 	{
+		/********************************************//**
+		* \brief Function called when Shader has been loaded 
+		***********************************************/
 		void onLoad();
 	private:
 		friend struct firstengine::Shader;

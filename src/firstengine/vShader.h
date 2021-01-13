@@ -8,8 +8,14 @@
 namespace firstengine
 {
 	struct Shader;
+	/********************************************//**
+	* \brief Stores teh Vertex shader data
+	***********************************************/
 	struct vShader : public Resource
 	{
+		/********************************************//**
+		* \brief Used to load the required data
+		***********************************************/
 		void onLoad();
 	private:
 		friend struct firstengine::Shader;

@@ -13,6 +13,7 @@ namespace firstengine
 	struct Exception;
 	struct Component;
 	struct Core;
+	struct RigidBody;
 	/********************************************//**
 	* \brief Allows for game objects to be created
 	***********************************************/
@@ -78,6 +79,7 @@ namespace firstengine
 			throw firstengine::Exception("Requested component was not found");
 		}
 	private:
+		friend struct firstengine::RigidBody;
 		std::vector<std::shared_ptr<Component>> components;
 		std::weak_ptr<Core> core;
 		std::weak_ptr<Entity> self;

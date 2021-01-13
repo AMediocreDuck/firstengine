@@ -74,11 +74,11 @@ namespace firstengine
 		fragmentShader = getCore()->cacheManager->loadResource<fShader>(path);
 		dirty = true;
 	}
-	void Renderer::setTexture(const char* path)
-	{
-		//texture = getCore()->cacheManager->loadResource<Texture>(path);
-		//texture->setTextureData(rtn->data, rtn->w, rtn->h);
-	}
+	//void Renderer::setTexture(const char* path)
+	//{
+	//	//texture = getCore()->cacheManager->loadResource<Texture>(path);
+	//	//texture->setTextureData(rtn->data, rtn->w, rtn->h);
+	//}
 	void Renderer::addTexture(const char* path)
 	{
 		std::shared_ptr<firstengine::Texture> texture;
