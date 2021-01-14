@@ -19,21 +19,21 @@ namespace firstengine
 		***********************************************/
 		void onInitialize() {};
 		/********************************************//**
-		*  \brief Function called every tick, used to call onTick
+		*  \brief Tick ran before all other Ticks
 		***********************************************/
-		void tick();
+		void speedTick();
 		/********************************************//**
 		*  \brief Tick ran before all other Ticks
 		***********************************************/
 		virtual void onSpeedTick();
 		/********************************************//**
+		*  \brief Function called every tick, used to call onTick
+		***********************************************/
+		void tick();
+		/********************************************//**
 		*  \brief Function to be overidden with specific component commands 
 		***********************************************/
 		virtual void onTick();
-		/********************************************//**
-		*  \brief Tick ran after all other Ticks
-		***********************************************/
-		void onSlowTick();
 		/********************************************//**
 		*  \brief Calls onAfterTick() after all other ticks have happened
 		***********************************************/

@@ -3,7 +3,7 @@
 #include "Core.h"
 #include "CacheManager.h"
 #include "Entity.h"
-
+#include <iostream>
 namespace firstengine
 {
 	void SoundSource::onInitialize()
@@ -41,6 +41,13 @@ namespace firstengine
 	{
 		if (soundWorking)
 		{
+
+			alGenSources(1, &ssId);
+			alListener3f(AL_POSITION, 0.0f, 0.0f, 0.0f);
+			alSource3f(ssId, AL_POSITION, 0.0f, 0.0f, 0.0f);
+			//alSourcef(ssId, AL_GAIN, 0.5f);
+			//alSourcei(ssId, AL_LOOPING, AL_TRUE);
+
 			sound = getCore()->cacheManager->loadResource<Sound>(path);
 			alSourcei(ssId, AL_BUFFER, sound->soundId);
 			alSourcePlay(ssId);
@@ -49,6 +56,18 @@ namespace firstengine
 
 			ALint state = 0;
 			alGetSourcei(ssId, AL_SOURCE_STATE, &state);
+			if (state == AL_STOPPED)
+			{
+				std::cout << "Stopped" << std::endl;
+			 }
+			if (state == AL_INITIAL)
+			{
+				std::cout << "INIT" << std::endl;
+			}
+			if (state == AL_PLAYING)
+			{
+				std::cout << "PLAY" << std::endl;
+			}
 			std::cout << state << std::endl;
 		}
 	}

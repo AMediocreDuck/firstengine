@@ -126,6 +126,10 @@ namespace firstengine
 
 			for (size_t ei = 0; ei < entities.size(); ei++)
 			{
+				entities.at(ei)->speedTick();
+			}
+			for (size_t ei = 0; ei < entities.size(); ei++)
+			{
 				entities.at(ei)->tick();
 			}
 			for (size_t ei = 0; ei < entities.size(); ei++)

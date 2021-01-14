@@ -88,7 +88,7 @@ int main()
 	prb->setScale(2.0f,2.0f,2.0f);
 	//pe->getComponent<Transform>()->setScale(glm::vec3(0.1, 0.1, 0.1));
 	std::shared_ptr<Rotate> prr = pe->addComponent<Rotate>();
-	pss->setSound("./Resources/sounds/anosou.ogg");
+	pss->setSound("./Resources/sounds/dixie_horn.ogg");
 	pr->setShader("./Resources/shaders/VertexShader.txt;./Resources/shaders/FragmentShader.txt");
 	pr->setModel("./Resources/models/better_ball.obj");
 	pr->addTexture("./Resources/pbrTextures/narrowbrick1-albedo.png");

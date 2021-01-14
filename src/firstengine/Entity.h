@@ -47,6 +47,10 @@ namespace firstengine
 			return rtn;
 		}
 		/********************************************//**
+		* \brief speedTick is called once a frame before Tick and is used to call all the Entity Component speedTicks
+		***********************************************/
+		void speedTick();
+		/********************************************//**
 		* \brief Tick is called once a frame and is used to call all the Entity Component ticks
 		***********************************************/
 		void tick();

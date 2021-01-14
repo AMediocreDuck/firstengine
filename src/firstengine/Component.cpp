@@ -4,15 +4,17 @@
 
 namespace firstengine
 {
-	void Component::tick()
+
+	void Component::speedTick()
 	{
 		onSpeedTick();
+	}
+	void Component::tick()
+	{
 		onTick();
-		onSlowTick();
 	}
 	void Component::onSpeedTick() {};
 	void Component::onTick() {};
-	void Component::onSlowTick() {};
 
 	void Component::afterTick()
 	{

@@ -44,10 +44,6 @@ namespace firstengine
 		***********************************************/
 		std::shared_ptr<Entity> addEntity();
 		/********************************************//**
-		* \brief Creates and adds a Camera Entity to cores local Camera storage
-		***********************************************/
-		//std::shared_ptr<Entity> addCamera();
-		/********************************************//**
 		* \brief Starts the main programs loop
 		***********************************************/
 		void start();
@@ -69,7 +65,7 @@ namespace firstengine
 		* \brief Sets the engines framerate 
 		***********************************************/
 		void setFPS(int _fps);
-
+		
 		/********************************************//**
 		* \brief Variable to keep track of whether or not sound is supported
 		***********************************************/
