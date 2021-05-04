@@ -26,6 +26,11 @@ namespace firstengine
 
 	struct Camera;
 	struct RigidBody;
+
+	struct NetworkManager;
+	struct ThreadManager;
+
+
 	/********************************************//**
 	* \brief Heart of the Engine: Central Hub for all Functionality
 	***********************************************/
@@ -83,6 +88,9 @@ namespace firstengine
 		***********************************************/
 		std::shared_ptr<CacheManager> cacheManager;
 
+		std::shared_ptr<NetworkManager> networkManager;
+		std::shared_ptr<ThreadManager> threadManager;
+
 	private:
 #ifdef EMSCRIPTEN
 		static bool Loop();
@@ -103,6 +111,8 @@ namespace firstengine
 		std::shared_ptr<Screen> screen;
 		std::shared_ptr<Keyboard> keyboard;
 		std::weak_ptr<Core> self;
+
+
 
 		float FPS = 60;
 		float frameDelay = 1000.0f / FPS; 

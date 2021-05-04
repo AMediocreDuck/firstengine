@@ -18,6 +18,28 @@ else()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_SDL=2 -s DISABLE_EXCEPTION_CATCHING=0")
 endif()
 
+add_library(fenet
+src/fenet/Exception.cpp
+src/fenet/IPEndPoint.cpp
+src/fenet/Network.cpp
+src/fenet/Packet.cpp
+src/fenet/Socket.cpp
+src/fenet/SslSocket.cpp
+
+src/fenet/Constants.h
+src/fenet/Exception.h
+src/fenet/Fenet.h
+src/fenet/FenetResult.h
+src/fenet/IPVersion.h
+src/fenet/IPEndPoint.h
+src/fenet/Network.h
+src/fenet/Packet.h
+src/fenet/Socket.h
+src/fenet/SocketHandle.h
+src/fenet/SocketOptions.h
+src/fenet/SslSocket.h
+)
+
 add_library(fegraphics
 src/fegraphics/ShaderProgram.cpp
 src/fegraphics/Texture.cpp
@@ -71,15 +93,19 @@ src/firstengine/Exception.cpp
 src/firstengine/fShader.cpp
 src/firstengine/Keyboard.cpp
 src/firstengine/Model.cpp
+src/firstengine/NetworkManager.cpp
+src/firstengine/Packet.cpp
 src/firstengine/Renderer.cpp
 src/firstengine/Resource.cpp
 src/firstengine/RigidBody.cpp
 src/firstengine/Screen.cpp
 src/firstengine/Shader.cpp
+src/firstengine/Socket.cpp
 src/firstengine/Sound.cpp
 src/firstengine/SoundSource.cpp
 src/firstengine/SphereCollider.cpp
 src/firstengine/Texture.cpp
+src/firstengine/ThreadManager.cpp
 src/firstengine/Transform.cpp
 src/firstengine/vShader.cpp
 
@@ -94,35 +120,44 @@ src/firstengine/Exception.h
 src/firstengine/fShader.h
 src/firstengine/Keyboard.h
 src/firstengine/Model.h
+src/firstengine/NetworkManager.h
+src/firstengine/Packet.h
 src/firstengine/Renderer.h
 src/firstengine/Resource.h
 src/firstengine/RigidBody.h
 src/firstengine/Screen.h
 src/firstengine/Shader.h
+src/firstengine/Socket.h
 src/firstengine/Sound.h
 src/firstengine/SoundSource.h
 src/firstengine/SphereCollider.h
 src/firstengine/Texture.h
+src/firstengine/ThreadManager.h
 src/firstengine/Transform.h
 src/firstengine/vShader.h
 
 )
 
 if(MSVC OR MINGW)
+	target_link_libraries(fenet Ws2_32.lib libssl.lib libcrypto.lib)
 	target_link_libraries(fephysics glew32 opengl32)
-	target_link_libraries(firstengine fegraphics fephysics SDL2 glew32 OpenAL32)
+	target_link_libraries(firstengine fegraphics fephysics fenet SDL2 glew32 OpenAL32)
 
 else()
 	target_link_libraries(fephysics GLEW GL)
 	target_link_libraries(fegraphics SDL2 GLEW GL)
-	target_link_libraries(firstengine fegraphics fephysics SDL2 GLEW OpenAL32)
+	target_link_libraries(firstengine fegraphics fephysics fenet SDL2 GLEW OpenAL32)
 endif()
 
-add_executable(demo
-src/demo/main.cpp
+add_executable(demoClient
+src/demoClient/main.cpp
+)
+add_executable(demoServer
+src/demoServer/main.cpp
 )
 
-target_link_libraries(demo firstengine)
+target_link_libraries(demoClient firstengine)
+target_link_libraries(demoServer firstengine)
 
 
 

@@ -20,9 +20,14 @@
 #include "SoundSource.h"
 #include "SphereCollider.h"
 #include "Texture.h"
+#include "ThreadManager.h"
 #include "Transform.h"
 #include "vShader.h"
 
+
+#include "NetworkManager.h"
+#include "Packet.h"
+#include "Socket.h"
 
 using namespace firstengine;
 

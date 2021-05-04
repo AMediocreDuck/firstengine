@@ -51,23 +51,9 @@ namespace firstengine
 			sound = getCore()->cacheManager->loadResource<Sound>(path);
 			alSourcei(ssId, AL_BUFFER, sound->soundId);
 			alSourcePlay(ssId);
-
 			
-
 			ALint state = 0;
 			alGetSourcei(ssId, AL_SOURCE_STATE, &state);
-			if (state == AL_STOPPED)
-			{
-				std::cout << "Stopped" << std::endl;
-			 }
-			if (state == AL_INITIAL)
-			{
-				std::cout << "INIT" << std::endl;
-			}
-			if (state == AL_PLAYING)
-			{
-				std::cout << "PLAY" << std::endl;
-			}
 			std::cout << state << std::endl;
 		}
 	}
